@@ -9,6 +9,8 @@ Dont worry about the ways your getting the data
 
 Have data to put in
 
+edit
+
 
 -- 1️⃣ Create a new database (optional)
 CREATE DATABASE IF NOT EXISTS ClimateSim;
