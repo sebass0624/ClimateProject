@@ -1,4 +1,4 @@
-﻿Solutions:
+Solutions:
 
 
 Stay away freom real world solutions
@@ -69,3 +69,16 @@ FROM
 
 -- 4️⃣ View a sample of the generated data
 SELECT * FROM weather_data LIMIT 500;
+
+
+
+
+
+
+* Notes From Modell*
+
+-when making database, make separate tables for methods of data collection.
+-What raw data are we collecting? 
+-Method of getting data can be random, how often does the data come in? and how? does it help in answering our questions 
+-Maybe look at Hydro Electric to see the effect of population on energy(ex:modell said). 
+-when making the data using random would cause different data unless you make parameters, modell said to create insert statements to copy and paste and manually tweak to make it easy, also can build it and create a script to generate it random once. Generator allows large amounts of data to be generated. 
