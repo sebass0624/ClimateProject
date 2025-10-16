@@ -1,0 +1,71 @@
+﻿Solutions:
+
+
+Stay away freom real world solutions
+
+
+Dont worry about the ways your getting the data
+
+
+Have data to put in
+
+
+-- 1️⃣ Create a new database (optional)
+CREATE DATABASE IF NOT EXISTS ClimateSim;
+USE ClimateSim;
+
+
+-- 2️⃣ Create the table
+DROP TABLE IF EXISTS weather_data;
+CREATE TABLE weather_data (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    station_id VARCHAR(10),
+    station_type VARCHAR(20),
+    latitude DECIMAL(6,2),
+    longitude DECIMAL(6,2),
+    datetime_utc DATETIME,
+    temperature_C DECIMAL(5,2),
+    pressure_hPa DECIMAL(6,2),
+    humidity_pct DECIMAL(5,1),
+    wind_speed_m_s DECIMAL(5,2),
+    co2_ppm DECIMAL(6,2),
+    water_temp_C DECIMAL(5,2)
+);
+
+
+-- 3️⃣ Generate 500 random records
+-- You can change 500 to any number you want
+INSERT INTO weather_data (
+    station_id, station_type, latitude, longitude, datetime_utc,
+    temperature_C, pressure_hPa, humidity_pct, wind_speed_m_s, co2_ppm, water_temp_C
+)
+SELECT
+    CONCAT('ST', LPAD(FLOOR(RAND() * 1000), 3, '0')) AS station_id,
+    CASE
+        WHEN RAND() < 0.33 THEN 'buoy'
+        WHEN RAND() < 0.66 THEN 'surface'
+        ELSE 'balloon'
+    END AS station_type,
+    ROUND(-90 + RAND() * 180, 2) AS latitude,
+    ROUND(-180 + RAND() * 360, 2) AS longitude,
+    NOW() - INTERVAL FLOOR(RAND() * 168) HOUR AS datetime_utc,  -- random time within the past week
+    ROUND(-10 + RAND() * 45, 2) AS temperature_C,
+    ROUND(970 + RAND() * 60, 2) AS pressure_hPa,
+    ROUND(RAND() * 100, 1) AS humidity_pct,
+    ROUND(RAND() * 20, 2) AS wind_speed_m_s,
+    ROUND(410 + RAND() * 5, 2) AS co2_ppm,
+    CASE
+        WHEN RAND() < 0.33 THEN ROUND(5 + RAND() * 25, 2)
+        ELSE NULL
+    END AS water_temp_C
+FROM
+    (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
+     UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) t1,
+    (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5
+     UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10) t2,
+    (SELECT 1 UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) t3;
+-- 10 × 10 × 5 = 500 total rows
+
+
+-- 4️⃣ View a sample of the generated data
+SELECT * FROM weather_data LIMIT 500;
