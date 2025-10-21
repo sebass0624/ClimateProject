@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 ﻿Sanabria, Badjie, Diaz, Mansilla
+=======
+Solutions:
+>>>>>>> 4c0d5f3e3bd35bd5a25dbbb5fab8e8a59ea391fc
 
 
 Team Climate
@@ -7,6 +11,8 @@ Team Climate
 Challenges/Solutions
 
 
+
+edit
 
 
 
@@ -19,6 +25,7 @@ Team Climate’s Challenges/Solutions Presented:
 * Another problem we faced as a group was how to define the data dictionary. A potential solution is to research what they include and how you’d implement it into your database.
 
 
+<<<<<<< HEAD
 
 
 Sushi Superheroes’ Challenges/Solutions Presented:
@@ -26,3 +33,20 @@ Sushi Superheroes’ Challenges/Solutions Presented:
 * Their group's problems were that the coordination and time spent on interesting, yet unrelated, information specific to their main cause were dragging them down significantly. A potential solution could be to start taking data in and processing it little by little to figure out which is raw data and which is not.
 * Another problem they had was creating hypothetical questions about the data they had. This data is fictitious and does not matter in this case, so they had to remind themselves about that to move on. A potential solution is acknowledging that this database will be around fictional data, real data, and not be as relevant.
 * A problem that Sean had specifically was with the trouble statements and how to equate them to the actual statements listed. This also correlates with the species names, as some species can give a double meaning, thus giving wrong information. A possible solution is the implementation of a data dictionary to provide more structure and definition for your information
+=======
+-- 4️⃣ View a sample of the generated data
+SELECT * FROM weather_data LIMIT 500;
+
+
+
+
+
+
+* Notes From Modell*
+
+-when making database, make separate tables for methods of data collection.
+-What raw data are we collecting? 
+-Method of getting data can be random, how often does the data come in? and how? does it help in answering our questions 
+-Maybe look at Hydro Electric to see the effect of population on energy(ex:modell said). 
+-when making the data using random would cause different data unless you make parameters, modell said to create insert statements to copy and paste and manually tweak to make it easy, also can build it and create a script to generate it random once. Generator allows large amounts of data to be generated. 
+>>>>>>> 4c0d5f3e3bd35bd5a25dbbb5fab8e8a59ea391fc
