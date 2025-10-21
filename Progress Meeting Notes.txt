@@ -84,3 +84,21 @@ SELECT * FROM weather_data LIMIT 500;
 -Method of getting data can be random, how often does the data come in? and how? does it help in answering our questions 
 -Maybe look at Hydro Electric to see the effect of population on energy(ex:modell said). 
 -when making the data using random would cause different data unless you make parameters, modell said to create insert statements to copy and paste and manually tweak to make it easy, also can build it and create a script to generate it random once. Generator allows large amounts of data to be generated. 
+
+
+*Notes 10/21*
+
+
+The Buoy table needs a primary key to make unique; the buoy ID would point to the buoy table
+
+Make tables a union 
+
+9-10 tables that would have info
+
+Focusing on the emissions 
+
+Questions to be answered:
+
+How are we going to define the table relationships? (ex. one-to-many, many-to-many, etc.)
+
+E-R diagram? How that would look.
