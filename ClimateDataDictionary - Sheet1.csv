@@ -1,0 +1,49 @@
+Table Name,Column Name,Data Type,Key Type,Nullable,Description
+staff,,,,,
+,staff_id,INT,PK,No,Unique identifier for staff
+,staff_name,VARCHAR(50),,No,Full name member of staff
+,role,VARCHAR(50),,No,"Staff member's role(Technician, Scientist, etc.)"
+monitor_maintenance,,,,,
+,maintenance_id,INT,PK,No,Unique identifier for maintenance event
+,staff_id,INT,FK,No,"FK to staff, identifies which staff did maintenance "
+,buoy_id,INT,FK,Yes,"FK to buoy_info, populated when buoy gets maintenance"
+,surface_id,INT,FK,Yes,"FK to surface_info, populated when surface monitor gets maintenance"
+,balloon_id,INT,FK,Yes,"FK to balloon_info, populated when balloon gets maintenance"
+,maintenance_date,DATE,FK,Yes,When maintenance occured
+,description,VARCHAR(255),,Yes,Notes about maintenance event
+buoy_info,,,,,Metadata for ocean buoys
+,buoy_id,INT,PK,No,Unique identifier for each buoy
+,location,VARCHAR(50),,No,Location of each buoy's deployment
+,country,VARCHAR(50),,No,Country responsible for buoy
+,deploy_date,DATE,,Yes,Date of buoy deployment
+balloon_info,,,,,
+,balloon_id,INT,PK,No,Unique identifier for each balloon
+,location,VARCHAR(50),,No,Location of each balloon's deployment
+,country,VARCHAR(50),,No,Country responsible for balloon
+,deploy_date,DATE,,Yes,Date of balloon deployment
+surface_info,,,,,
+,surface_id,INT,PK,No,Unique identifier for each surface monitor
+,location,VARCHAR(50),,No,Location of each surface monitor's deployment
+,country,VARCHAR(50),,No,Country responsible for surface monitor
+,deploy_date,DATE,,Yes,Date of surface monitor deployment
+buoy_readings,,,,,
+,reading_id,INT,PK,No,Unique identifier for buoy reading record
+,buoy_id,INT,FK,No,"FK to buoy_info, links reading to each specific buoy"
+,buoy_reading_date,DATE,,No,Date of buoy reading
+,co2_ppm,"DECIMAL(6,2)",,No,Concentration of carbon dioxide (ppm) 
+,sea_temp_c,"DECIMAL(5,2)",,Yes,Sea temperature (Celsius)
+,wind_speed_ms,"DECIMAL(5,2)",,Yes,Wind speed (m/s)
+balloon_readings,,,,,
+,balloon_reading_id,INT,PK,No,Unique identifier for balloon reading record
+,balloon_id,INT,FK,No,"FK to balloon_info, links reading to each specific balloon"
+,balloon_reading_date,DATE,,No,Date of balloon reading
+,co2_ppm,"DECIMAL(6,2)",,No,Concentration of carbon dioxide (ppm) 
+,o3_ppb,"DECIMAL(6,2)",,Yes,Concentration of ozone (pbm)
+,wind_speed_ms,"DECIMAL(5,2)",,Yes,Wind speed (m/s)
+surface_readings,,,,,
+,surface_readings_id,INT,PK,No,Unique identifier for surface monitor reading record
+,surface_id,INT,FK,No,"FK to surface_info, links reading to each specific balloon"
+,surface_reading_date,DATE,,No,Date of surface monitor reading
+,co2_ppm,"DECIMAL(6,2)",,No,Concentration of carbon dioxide (ppm) 
+,air_pressure_mb,"DECIMAL(6,2)",,Yes,Air pressure (millibars)
+,humid_percent_m3,"DECIMAL(5,2)",,Yes,"Humidity (percentage, m^3)"
