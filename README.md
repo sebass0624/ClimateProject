@@ -18,11 +18,11 @@ The data supporting the Global Climate Monitor (GCM) is organized using a normal
 
 **(This ER diagram shows many-to-many relationships using intermediate (junction) tables that connect two major entities. For example, the monitor\_maintenance table connects buoy\_info with staff. This demonstrates that different staff members may do service on numerous buoys, which is a common many-to-many interaction. Similarly, the buoy\_readings, balloon\_readings, and nsurface\_readings tables serve as connection points between their respective "info" tables and the recorded readings.)**
 
-**Data Dictionary (current progress):**
+**Data Dictionary (complete)**
 
 **![][image1]**
 
-**Initial Mock Testing Data/Queries (not completed)**
+**Initial Mock Testing Data/Queries (completed)**
 
 *\-- DDL SCRIPT: Global Climate Monitor (GCM) Database Schema \- FINAL \-- This script contains the DDL, Indexes, and DML for the 8-table normalized database.* 
 
