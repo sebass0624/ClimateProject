@@ -46,7 +46,7 @@ CREATE TABLE staff (
 
 \-- 2.2 Country Table (Parent for Monitors)
 CREATE TABLE country\_info (
-    country\_id INT AUTO_INCREMENT PRIMARY KEY,
+    country\_id INT AUTO_INCREMENT PRIMARY KEY, 
     country\_name VARCHAR(50) UNIQUE NOT NULL
 );
 
@@ -64,7 +64,7 @@ CREATE TABLE balloon\_info (
     balloon\_id INT AUTO\_INCREMENT PRIMARY KEY,   
     location VARCHAR(50) NOT NULL,   
     country\_id INT,   
-    deploy\_date DATE,
+    deploy\_date DATE, 
     FOREIGN KEY(country\_id) REFERENCES country_info(country\_id)
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE surface\_info (
     surface\_id INT AUTO\_INCREMENT PRIMARY KEY,   
     location VARCHAR(50) NOT NULL,   
     country\_id INT,   
-    deploy\_date DATE,
+    deploy\_date DATE, 
     FOREIGN KEY(country\_id) REFERENCES country_info(country\_id)
 );
 
