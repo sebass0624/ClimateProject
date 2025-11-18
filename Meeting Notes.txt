@@ -1,0 +1,28 @@
+﻿Sanabria, Badjie, Diaz, Mansilla
+
+
+Team Climate
+
+
+Challenges/Solutions
+
+
+
+
+
+
+
+
+Team Climate’s Challenges/Solutions Presented:
+* Our issue is about renewable energy, and how we can use it to help change the climate. We are also looking for which countries are the biggest contributors to bad emissions. Our goal is to lower the emission rate of all countries around the world. 
+* A group problem we faced was how to avoid the trap of looking at real data. A potential solution is to change your mindset and focus on the how/why.
+* Another problem we faced as a group was how to define the data dictionary. A potential solution is to research what they include and how you’d implement it into your database.
+
+
+
+
+Sushi Superheroes’ Challenges/Solutions Presented:
+* Their challenge is based on water pollution and how to remove as much as possible from large bodies of water, specifically microplastics. Their goal is to give cleaner water while also saving species of fish.
+* Their group's problems were that the coordination and time spent on interesting, yet unrelated, information specific to their main cause were dragging them down significantly. A potential solution could be to start taking data in and processing it little by little to figure out which is raw data and which is not.
+* Another problem they had was creating hypothetical questions about the data they had. This data is fictitious and does not matter in this case, so they had to remind themselves about that to move on. A potential solution is acknowledging that this database will be around fictional data, real data, and not be as relevant.
+* A problem that Sean had specifically was with the trouble statements and how to equate them to the actual statements listed. This also correlates with the species names, as some species can give a double meaning, thus giving wrong information. A possible solution is the implementation of a data dictionary to provide more structure and definition for your information
