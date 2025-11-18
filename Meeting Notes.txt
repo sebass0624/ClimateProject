@@ -1,4 +1,4 @@
-﻿Sanabria, Badjie, Diaz, Mansilla
+Sanabria, Badjie, Diaz, Mansilla
 
 
 Team Climate
@@ -7,18 +7,10 @@ Team Climate
 Challenges/Solutions
 
 
-
-
-
-
-
-
 Team Climate’s Challenges/Solutions Presented:
 * Our issue is about renewable energy, and how we can use it to help change the climate. We are also looking for which countries are the biggest contributors to bad emissions. Our goal is to lower the emission rate of all countries around the world. 
 * A group problem we faced was how to avoid the trap of looking at real data. A potential solution is to change your mindset and focus on the how/why.
 * Another problem we faced as a group was how to define the data dictionary. A potential solution is to research what they include and how you’d implement it into your database.
-
-
 
 
 Sushi Superheroes’ Challenges/Solutions Presented:
