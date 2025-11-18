@@ -152,7 +152,8 @@ INSERT INTO buoy\_info (location, country, deploy\_date) VALUES
 ('Arctic Buoy D1', 'Norway', '2025-04-17'),   
 ('Southern Buoy A1', 'Antarctica', '2025-05-18'); 
 
-INSERT INTO balloon\_info (location, country, deploy\_date) VALUES ('Atlantic Balloon A1', 'USA', '2025-01-12'),   
+INSERT INTO balloon\_info (location, country, deploy\_date) VALUES 
+('Atlantic Balloon A1', 'USA', '2025-01-12'),   
 ('Pacific Balloon B1', 'Australia', '2025-03-14'),   
 ('Indian Balloon C1', 'India', '2025-03-26'),   
 ('Arctic Balloon D1', 'Norway', '2025-04-14'),   
