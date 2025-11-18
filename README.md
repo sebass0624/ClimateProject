@@ -44,28 +44,37 @@ CREATE TABLE staff (
     role VARCHAR(50) NOT NULL   
 );
 
-\-- 2.2 Buoy Metadata Table (Parent for Buoy Readings and Monitor Maintenance)   
+\-- 2.2 Country Table (Parent for Monitors)
+CREATE TABLE country\_info (
+    country\_id INT AUTO_INCREMENT PRIMARY KEY,
+    country\_name VARCHAR(50) UNIQUE NOT NULL
+);
+
+\-- 2.3 Buoy Metadata Table (Parent for Buoy Readings and Monitor Maintenance)   
 CREATE TABLE buoy\_info (  
     buoy\_id INT AUTO\_INCREMENT PRIMARY KEY,   
     location VARCHAR(50) NOT NULL,   
-    country VARCHAR(50) NOT NULL,   
-    deploy\_date DATE  
+    country\_id INT,   
+    deploy\_date DATE,  
+    FOREIGN KEY(country_id) REFERENCES country_info(country_id)
 );
 
-\-- 2.3 Balloon Metadata Table   
+\-- 2.4 Balloon Metadata Table   
 CREATE TABLE balloon\_info (  
     balloon\_id INT AUTO\_INCREMENT PRIMARY KEY,   
     location VARCHAR(50) NOT NULL,   
-    country VARCHAR(50) NOT NULL,   
-    deploy\_date DATE   
+    country\_id INT,   
+    deploy\_date DATE,
+    FOREIGN KEY(country_id) REFERENCES country_info(country_id)
 );
 
-\-- 2.4 Surface Monitor Metadata Table   
+\-- 2.5 Surface Monitor Metadata Table   
 CREATE TABLE surface\_info (  
     surface\_id INT AUTO\_INCREMENT PRIMARY KEY,   
     location VARCHAR(50) NOT NULL,   
-    country VARCHAR(50) NOT NULL,   
-    deploy\_date DATE   
+    country\_id INT,   
+    deploy\_date DATE,
+    FOREIGN KEY(country_id) REFERENCES country_info(country_id)
 );
 
 \-- SECTION 3: CREATE CHILD/JUNCTION TABLES \-- Establish the Foreign Key (FK) constraints here. \-- 3.1 Monitor Maintenance Table (Junction \- M:N between staff and ALL monitor types)   
