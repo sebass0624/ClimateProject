@@ -1,4 +1,4 @@
--- SECTION 5: INSERT MOCK/TESTING DATA (DML) - CORRECTED
+-- SECTION 5: INSERT MOCK/TESTING DATA (DML)
 
 -- 5.1 Insert Staff Data
 -- Note: IDs will be 1, 2, 3
@@ -20,25 +20,25 @@ INSERT INTO country_info (country_id, country_name) VALUES
 -- Country ID assignments: 1=USA, 2=Australia, 3=India, 4=Norway, 5=Antarctica
 
 INSERT INTO buoy_info (country_id, location, deploy_date) VALUES
-(1, 'Atlantic Buoy A1','2025-01-10'),  -- Linked to USA
-(2, 'Pacific Buoy B1', '2025-02-15'),  -- Linked to Australia
-(3, 'Indian Buoy C1', '2025-03-06'),   -- Linked to India
-(4, 'Arctic Buoy D1', '2025-04-17'),   -- Linked to Norway
-(5, 'Southern Buoy A1', '2025-05-18'); -- Linked to Antarctica
+(1, 'Atlantic Buoy A1','2025-01-10'), 
+(2, 'Pacific Buoy B1', '2025-02-15'),  
+(3, 'Indian Buoy C1', '2025-03-06'),  
+(4, 'Arctic Buoy D1', '2025-04-17'),  
+(5, 'Southern Buoy A1', '2025-05-18'); 
 
 INSERT INTO balloon_info (country_id, location, deploy_date) VALUES
-(1, 'Atlantic Balloon A1', '2025-01-12'), -- Linked to USA
-(2, 'Pacific Balloon B1', '2025-03-14'), -- Linked to Australia
-(3, 'Indian Balloon C1', '2025-03-26'),  -- Linked to India
-(4, 'Arctic Balloon D1', '2025-04-14'),  -- Linked to Norway
-(5, 'Southern Balloon A1', '2025-05-15');-- Linked to Antarctica
+(1, 'Atlantic Balloon A1', '2025-01-12'), 
+(2, 'Pacific Balloon B1', '2025-03-14'), 
+(3, 'Indian Balloon C1', '2025-03-26'), 
+(4, 'Arctic Balloon D1', '2025-04-14'), 
+(5, 'Southern Balloon A1', '2025-05-15');
 
 INSERT INTO surface_info(country_id, location, deploy_date) VALUES
-(1, 'Atlantic Surface Monitor A1', '2025-01-24'), -- Linked to USA
-(2, 'Pacific Surface Monitor B1', '2025-02-06'), -- Linked to Australia
-(3, 'Indian Surface Monitor C1', '2025-04-12'),  -- Linked to India
-(4, 'Arctic Surface Monitor D1', '2025-05-01'),  -- Linked to Norway
-(5, 'Southern Surface Monitor A1', '2025-01-23');-- Linked to Antarctica
+(1, 'Atlantic Surface Monitor A1', '2025-01-24'), 
+(2, 'Pacific Surface Monitor B1', '2025-02-06'),
+(3, 'Indian Surface Monitor C1', '2025-04-12'),  
+(4, 'Arctic Surface Monitor D1', '2025-05-01'), 
+(5, 'Southern Surface Monitor A1', '2025-01-23');
 
 -- 5.4 Insert Maintenance Data (M:N Link)
 -- Correcting staff IDs based on the inserts (1=Dr. Jones, 2=Enrique, 3=Sarah)
@@ -72,5 +72,6 @@ INSERT INTO surface_readings (surface_id, surface_reading_date, co2_ppm, air_pre
 (3, '2025-10-02', 410.45, 1010.40, 55.9), (3, '2025-10-05', 409.90, 1010.10, 56.0), (3, '2025-10-03', 411.20, 1010.30, 55.8), (3, '2025-10-02', 410.95, 1010.50, 56.1),
 (4, '2025-10-09', 392.12, 1005.10, 40.1), (4, '2025-10-08', 391.75, 1005.30, 40.0), (4, '2025-10-03', 392.40, 1005.20, 40.2), (4, '2025-10-04', 392.00, 1005.00, 40.3),
 (5, '2025-10-02', 405.10, 1011.40, 58.7), (5, '2025-10-08', 404.85, 1011.50, 58.5), (5, '2025-10-05', 405.45, 1011.60, 58.8), (5, '2025-10-03', 405.00, 1011.50, 58.6);
+
 
 
