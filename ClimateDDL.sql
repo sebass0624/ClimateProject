@@ -1,5 +1,20 @@
--- SECTION 2: CREATE PARENT TABLES (Metadata & Staff)
+CREATE DATABASE IF NOT EXISTS gcm_database;
+USE gcm_database;
 
+-- SECTION 1: DROP TABLES 
+DROP TABLE IF EXISTS buoy_readings;
+DROP TABLE IF EXISTS balloon_readings;
+DROP TABLE IF EXISTS surface_readings;
+DROP TABLE IF EXISTS monitor_maintenance; -- M:N Junction table
+DROP TABLE IF EXISTS buoy_info;
+DROP TABLE IF EXISTS balloon_info;
+DROP TABLE IF EXISTS surface_info;
+DROP TABLE IF EXISTS staff;
+DROP TABLE IF EXISTS country_info;
+DROP TABLE IF EXISTS country_lookup;
+
+
+-- SECTION 2: CREATE PARENT TABLES (Metadata & Staff)
 -- 2.1 Staff Table (Parent for M:N relationship)
 CREATE TABLE staff (
     staff_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,14 +53,11 @@ location VARCHAR(50) NOT NULL,
 country_id INT,
 deploy_date DATE, 
 FOREIGN KEY(country_id) REFERENCES country_info(country_id) 
-             );
+);
 
 
 -- SECTION 3: CREATE CHILD/JUNCTION TABLES
--- Establish the Foreign Key (FK) constraints here.
-
 -- 3.1 Monitor Maintenance Table (Junction - M:N between staff and ALL monitor types)
--- Only one of buoy_id, balloon_id, or surface_id should be populated per record.
 CREATE TABLE monitor_maintenance (
     maintenance_id INT AUTO_INCREMENT PRIMARY KEY,
     staff_id INT NOT NULL,
@@ -54,8 +66,7 @@ CREATE TABLE monitor_maintenance (
     surface_id INT,
     maintenance_date DATE NOT NULL,
     description VARCHAR(255),
-
-    -- Define Foreign Key Constraints
+    -- Foreign Key Constraints
     FOREIGN KEY (buoy_id) REFERENCES buoy_info(buoy_id),
     FOREIGN KEY (balloon_id) REFERENCES balloon_info(balloon_id),
     FOREIGN KEY (surface_id) REFERENCES surface_info(surface_id),
@@ -85,7 +96,6 @@ CREATE TABLE balloon_readings (
 );
 
 -- 3.4 Surface Monitor Readings Table (1:N relationship with surface_info)
--- This is the table that was missing previously.
 CREATE TABLE surface_readings (
     surface_readings_id INT AUTO_INCREMENT PRIMARY KEY,
     surface_id INT NOT NULL,
@@ -95,22 +105,24 @@ CREATE TABLE surface_readings (
     humid_percent_m3 DECIMAL (5,2),
     FOREIGN KEY (surface_id) REFERENCES surface_info(surface_id)
 );
+
 -- 3.5 country_lookup table
 CREATE TABLE country_lookup (
     country_id INT PRIMARY KEY,
     country_name VARCHAR(255)
 );
 
+
 -- SECTION 4: CREATE INDEXES
 -- Country FK indexes
 CREATE INDEX idx_buoy_country on buoy_info (country_id);
 CREATE INDEX idx_balloon_country on balloon_info (country_id);
 CREATE INDEX idx_surface_country on surface_info (country_id);
+
 -- Monitor ID indexes
 CREATE INDEX idx_buoy_fk ON buoy_readings (buoy_id);
 CREATE INDEX idx_balloon_fk ON balloon_readings (balloon_id);
 CREATE INDEX idx_surface_fk ON surface_readings (surface_id);
-
 
 -- Monitor Maintenance indexes
 CREATE INDEX idx_maint_buoy_fk ON monitor_maintenance (buoy_id);
