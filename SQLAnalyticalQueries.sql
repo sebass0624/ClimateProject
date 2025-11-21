@@ -1,6 +1,6 @@
 -- Analytical Query 1: Compares each country's average CO2 concentration against the global average. Helps identify which regions are above or below the overall mean CO2 level. 
 
--- I. Calculates average CO2 average from all buoy readings per country
+-- I. Calculates the average CO2 concentration from all buoy readings per country
 WITH all_co2_readings AS (
     -- Get buoy readings, create alias
     SELECT T1.co2_ppm, T2.country_id AS country_id
@@ -40,7 +40,7 @@ FROM
 CROSS JOIN
     global_avg_co2 gac
 JOIN
-    country_lookup cl ON acr.country_id = cl.country_id
+    country_info cl ON acr.country_id = cl.country_id
 GROUP BY
     cl.country_name, gac.global_mean
 ORDER BY
@@ -167,3 +167,4 @@ JOIN
     avg_wind_per_country w ON ci.country_id = w.country_id
 ORDER BY
     critical_score DESC;
+
