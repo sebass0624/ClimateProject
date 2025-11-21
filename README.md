@@ -14,17 +14,18 @@ Our team project, Global Climate Monitor (GCM), supports our chosen SDG 13 by es
 
 The data supporting the Global Climate Monitor (GCM) is organized using a normalized relational database structure, which is designed for data integrity, minimal redundancy, and efficient querying. This architecture, which is detailed in the GCM Schema Diagram, is structured into nine primary tables that adhere to the Third Normal Form (3NF). This normalization is achieved by separating the fixed metadata for each of the three monitor types (Buoy, Balloon, Surface) from their time-series reading data in three distinct one-to-many relationships. This structure allows users to employ the database effectively. For example, foreign keys ensure that every recorded CO2 reading is linked to a single, known monitor and country, which prevents data errors during updates and ensures that every data point is geographically anchored. The data types are defined precisely for scientific use: INT and DATE formats uniquely identify monitors and their deployment schedules, while metrics such as CO2 and ozone use the DECIMAL type (e.g., DECIMAL(6,2)) to achieve maximum analytical accuracy. Our decision to impose "meticulous" definitions on incoming IoT records is crucial. These definitions ensure that raw input is thoroughly validated against the schema, ensuring that the necessary metadata (sensor identifications, country, location, etc.) is correctly parsed and associated with the numerical climate metrics before ingestion.
 
+The database schema utilizes a Many-to-Many relationship to track which staff members perform maintenance on which monitors. This relationship exists between the staff table and the monitor metadata tables (buoy_info, balloon_info, surface_info). This relationship is resolved by the monitor_maintenance table, which acts as a junction table. It is necessary to utilize this type of table because one staff member can maintain many monitors over time. Conversely, one monitor can be maintained by many different staff members. The monitor_maintenance table captures each maintenance event, linking a single staff_id to a single monitor ID (buoy_id, balloon_id, or surface_id) along with the specific maintenance_date.
+
+
 **ER DIAGRAM THAT DISPLAYS TABLE CONTENTS CAN BE SEEN BELOW**
 
 **ER Diagram**
-
-**(This ER diagram shows many-to-many relationships using intermediate (junction) tables that connect two major entities. For example, the monitor\_maintenance table connects buoy\_info with staff. This demonstrates that different staff members may do service on numerous buoys, which is a common many-to-many interaction. Similarly, the buoy\_readings, balloon\_readings, and nsurface\_readings tables serve as connection points between their respective "info" tables and the recorded readings.)**
 
 <img width="559" height="656" alt="ERVersion2" src="https://github.com/user-attachments/assets/11061b50-4c34-48e8-a16b-d47bbb104735" />
 
 **Data Dictionary (complete)**
 
-**![][image1]**
+(can be viewed under ClimateDataDictionary)
 
 **Initial Mock Testing Data/Queries (completed)**
 
