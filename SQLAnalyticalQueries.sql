@@ -43,42 +43,56 @@ GROUP BY
 ORDER BY
     deviation_from_global DESC
 
---Analytical Query 2, answers question regarding the correlation 
---between CO2 and land temperature amongst the different regions
 
-(
--- Top 3 Hottest Readings
-SELECT
-    'Hottest' AS category,
-    T2.location,
-    T1.sea_temp_c,
-    T1.co2_ppm,
-    T1.buoy_reading_date
-FROM
-    buoy_readings T1
-JOIN
-    buoy_info T2 ON T1.buoy_id = T2.buoy_id
-ORDER BY
-    T1.sea_temp_c DESC
-LIMIT 3
+    
+-- Analytical Query 2
+-- I. Calculates the average sea temperature per country
+WITH regional_sea_data AS (
+    SELECT 
+        ci.country_id,
+        ci.country_name,
+        AVG(br.sea_temp_c) AS average_sea_temp
+    FROM 
+        buoy_readings br
+    JOIN
+        buoy_info bi ON br.buoy_id = bi.buoy_id
+    JOIN 
+        country_info ci ON bi.country_id = ci.country_id
+    WHERE
+        br.sea_temp_c IS NOT NULL
+    GROUP BY 
+        ci.country_id, ci.country_name
+),
+
+-- II. Calculates the average land CO2 concentration per country
+avg_land_co2 AS (
+    SELECT 
+        ci.country_id,
+        AVG(sr.co2_ppm) AS average_land_co2
+    FROM 
+        surface_readings sr
+    JOIN
+        surface_info smi ON sr.surface_id = smi.surface_id
+    JOIN
+        country_info ci ON smi.country_id = ci.country_id
+    WHERE 
+        sr.co2_ppm IS NOT NULL
+    GROUP BY
+        ci.country_id 
 )
-UNION ALL
-(
--- Top 3 Coldest Readings
+-- III. Combine results, put in descending order by sea temperature
 SELECT
-    'Coldest' AS category,
-    T2.location,
-    T1.sea_temp_c,
-    T1.co2_ppm,
-    T1.buoy_reading_date
-FROM
-    buoy_readings T1
+    ast.country_name AS region,
+    CAST(ast.average_sea_temp AS DECIMAL(5, 2)) AS average_sea_temp_c,
+    CAST(alc.average_land_co2 AS DECIMAL(6, 2)) AS average_land_co2_ppm
+FROM 
+    regional_sea_data ast
 JOIN
-    buoy_info T2 ON T1.buoy_id = T2.buoy_id
+    avg_land_co2 alc ON ast.country_id = alc.country_id
 ORDER BY
-    T1.sea_temp_c ASC
-LIMIT 3
-);
+    average_sea_temp_c DESC;
+
+
 
 --Analytical Query 3, regarding the most crucial region for 
 --monitor deployment
@@ -100,3 +114,4 @@ GROUP BY
 ORDER BY
 
     average_co2_ppm_for_deployment DESC
+
