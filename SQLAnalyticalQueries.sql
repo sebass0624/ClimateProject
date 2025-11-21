@@ -1,3 +1,6 @@
+-- Analytical Query 1: Compares each country's average CO2 concentration against the global average. Helps identify which regions are above or below the overall mean CO2 level. 
+
+-- I. Calculates average CO2 average from all buoy readings per country
 WITH all_co2_readings AS (
     -- Get buoy readings, create alias
     SELECT T1.co2_ppm, T2.country_id AS country_id
@@ -19,12 +22,12 @@ WITH all_co2_readings AS (
     JOIN surface_info T2 ON T1.surface_id = T2.surface_id
 ),
 
--- 2. Calculate the global average CO2 concentration
+-- II. Calculate the global average CO2 concentration
 global_avg_co2 AS (
     SELECT AVG(co2_ppm) AS global_mean FROM all_co2_readings
 )
 
--- 3. Calculate country average CO2, deviation, and retrieve the country name
+-- III. Calculates the country average CO2, deviation, and retrieve the country name
 SELECT
     cl.country_name, -- Fetch the human-readable name using the lookup table
     CAST(AVG(acr.co2_ppm) AS DECIMAL(6, 2)) AS country_average_co2_ppm,
@@ -33,7 +36,7 @@ SELECT
     CAST(AVG(acr.co2_ppm) - gac.global_mean AS DECIMAL(6, 2)) AS deviation_from_global
 FROM
     all_co2_readings acr
--- Use CROSS JOIN for the single-row global average CTE
+-- IV. Use CROSS JOIN for the single-row global average CTE
 CROSS JOIN
     global_avg_co2 gac
 JOIN
@@ -45,7 +48,7 @@ ORDER BY
 
 
     
--- Analytical Query 2
+-- Analytical Query 2: Compares average sea temperature against average land CO2 concentration to evaluate potential correlations.
 -- I. Calculates the average sea temperature per country
 WITH regional_sea_data AS (
     SELECT 
@@ -114,4 +117,5 @@ GROUP BY
 ORDER BY
 
     average_co2_ppm_for_deployment DESC
+
 
