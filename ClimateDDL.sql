@@ -106,12 +106,6 @@ CREATE TABLE surface_readings (
     FOREIGN KEY (surface_id) REFERENCES surface_info(surface_id)
 );
 
--- 3.5 country_lookup table
-CREATE TABLE country_lookup (
-    country_id INT PRIMARY KEY,
-    country_name VARCHAR(255)
-);
-
 
 -- SECTION 4: CREATE INDEXES
 -- Country FK indexes
