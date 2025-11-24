@@ -2,33 +2,26 @@ CREATE DATABASE IF NOT EXISTS gcm_database;
 USE gcm_database;
 
 -- SECTION 1: DROP TABLES 
-DROP TABLE IF EXISTS buoy_readings;
-DROP TABLE IF EXISTS balloon_readings;
-DROP TABLE IF EXISTS surface_readings;
-DROP TABLE IF EXISTS monitor_maintenance; -- M:N Junction table
-DROP TABLE IF EXISTS buoy_info;
-DROP TABLE IF EXISTS balloon_info;
-DROP TABLE IF EXISTS surface_info;
-DROP TABLE IF EXISTS staff;
-DROP TABLE IF EXISTS country_info;
-DROP TABLE IF EXISTS country_lookup;
-
+-- Per advice, all drop table statements have been moved to their respective create table statements.
 
 -- SECTION 2: CREATE PARENT TABLES (Metadata & Staff)
 -- 2.1 Staff Table (Parent for M:N relationship)
+DROP TABLE IF EXISTS staff;
 CREATE TABLE staff (
     staff_id INT AUTO_INCREMENT PRIMARY KEY,
     staff_name VARCHAR(100) NOT NULL,
     role VARCHAR(50) NOT NULL
 );
 
--- 2.2 Country Table (Parent for Monitors) 
+-- 2.2 Country Table (Parent for Monitors)
+DROP TABLE IF EXISTS country_info;
 CREATE TABLE country_info ( 
 	country_id INT AUTO_INCREMENT PRIMARY KEY, 
     country_name VARCHAR(50) UNIQUE NOT NULL 
 );
 
 -- 2.3 Buoy Metadata Table (Parent for Buoy Readings and Monitor Maintenance)
+DROP TABLE IF EXISTS buoy_info;
 CREATE TABLE buoy_info (
 buoy_id INT AUTO_INCREMENT PRIMARY KEY,
 location VARCHAR(50) NOT NULL,
@@ -38,6 +31,7 @@ FOREIGN KEY(country_id) REFERENCES country_info(country_id)
 );
 
 -- 2.4 Balloon Metadata Table
+DROP TABLE IF EXISTS balloon_info;
 CREATE TABLE balloon_info (
 balloon_id INT AUTO_INCREMENT PRIMARY KEY,
 location VARCHAR(50) NOT NULL,
@@ -47,6 +41,7 @@ FOREIGN KEY(country_id) REFERENCES country_info(country_id)
 );
 
 -- 2.5 Surface Monitor Metadata Table
+DROP TABLE IF EXISTS surface_info;
 CREATE TABLE surface_info (
 surface_id INT AUTO_INCREMENT PRIMARY KEY,
 location VARCHAR(50) NOT NULL,
@@ -58,6 +53,7 @@ FOREIGN KEY(country_id) REFERENCES country_info(country_id)
 
 -- SECTION 3: CREATE CHILD/JUNCTION TABLES
 -- 3.1 Monitor Maintenance Table (Junction - M:N between staff and ALL monitor types)
+DROP TABLE IF EXISTS monitor_maintenance; -- M:N Junction table
 CREATE TABLE monitor_maintenance (
     maintenance_id INT AUTO_INCREMENT PRIMARY KEY,
     staff_id INT NOT NULL,
@@ -74,6 +70,7 @@ CREATE TABLE monitor_maintenance (
 );
 
 -- 3.2 Buoy Readings Table (1:N relationship with buoy_info)
+DROP TABLE IF EXISTS buoy_readings;
 CREATE TABLE buoy_readings (
     reading_id INT AUTO_INCREMENT PRIMARY KEY,
     buoy_id INT NOT NULL,
@@ -85,6 +82,7 @@ CREATE TABLE buoy_readings (
 );
 
 -- 3.3 Balloon Readings Table (1:N relationship with balloon_info)
+DROP TABLE IF EXISTS balloon_readings;
 CREATE TABLE balloon_readings (
     balloon_reading_id INT AUTO_INCREMENT PRIMARY KEY,
     balloon_id INT NOT NULL,
@@ -96,6 +94,7 @@ CREATE TABLE balloon_readings (
 );
 
 -- 3.4 Surface Monitor Readings Table (1:N relationship with surface_info)
+DROP TABLE IF EXISTS surface_readings;
 CREATE TABLE surface_readings (
     surface_readings_id INT AUTO_INCREMENT PRIMARY KEY,
     surface_id INT NOT NULL,
