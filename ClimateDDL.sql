@@ -3,6 +3,10 @@ USE gcm_database;
 
 -- SECTION 1: DROP TABLES 
 -- Per advice, all drop table statements have been moved to their respective create table statements.
+-- After updating each monitor's maintenance table to be separate, we ran into an issue where the code would not successfully run due to foreign key issues. 
+-- To remediate this, we set the foreign key check value to 0 until the end of the program, after which it is reset to 1.
+
+SET FOREIGN_KEY_CHECKS = 0;
 
 -- SECTION 2: CREATE PARENT TABLES (Metadata & Staff)
 -- 2.1 Staff Table (Parent for M:N relationship)
@@ -52,24 +56,43 @@ FOREIGN KEY(country_id) REFERENCES country_info(country_id)
 
 
 -- SECTION 3: CREATE CHILD/JUNCTION TABLES
--- 3.1 Monitor Maintenance Table (Junction - M:N between staff and ALL monitor types)
-DROP TABLE IF EXISTS monitor_maintenance; -- M:N Junction table
-CREATE TABLE monitor_maintenance (
-    maintenance_id INT AUTO_INCREMENT PRIMARY KEY,
+-- 3.1 Buoy Maintenance (M:N Staff to Buoy)
+DROP TABLE IF EXISTS maintenance_buoy;
+CREATE TABLE maintenance_buoy (
+    maint_id INT AUTO_INCREMENT PRIMARY KEY,
     staff_id INT NOT NULL,
-    buoy_id INT,
-    balloon_id INT,
-    surface_id INT,
+    buoy_id INT NOT NULL,
     maintenance_date DATE NOT NULL,
     description VARCHAR(255),
-    -- Foreign Key Constraints
-    FOREIGN KEY (buoy_id) REFERENCES buoy_info(buoy_id),
-    FOREIGN KEY (balloon_id) REFERENCES balloon_info(balloon_id),
-    FOREIGN KEY (surface_id) REFERENCES surface_info(surface_id),
-    FOREIGN KEY (staff_id) REFERENCES staff(staff_id)
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
+    FOREIGN KEY (buoy_id) REFERENCES buoy_info(buoy_id)
 );
 
--- 3.2 Buoy Readings Table (1:N relationship with buoy_info)
+-- 3.2 Balloon Maintenance (M:N Staff to Balloon)
+DROP TABLE IF EXISTS maintenance_balloon;
+CREATE TABLE maintenance_balloon (
+    maint_id INT AUTO_INCREMENT PRIMARY KEY,
+    staff_id INT NOT NULL,
+    balloon_id INT NOT NULL,
+    maintenance_date DATE NOT NULL,
+    description VARCHAR(255),
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
+    FOREIGN KEY (balloon_id) REFERENCES balloon_info(balloon_id)
+);
+
+-- 3.3 Surface Monitor Maintenance (M:N Staff to Surface Monitor)
+DROP TABLE IF EXISTS maintenance_surface;
+CREATE TABLE maintenance_surface (
+    maint_id INT AUTO_INCREMENT PRIMARY KEY,
+    staff_id INT NOT NULL,
+    surface_id INT NOT NULL,
+    maintenance_date DATE NOT NULL,
+    description VARCHAR(255),
+    FOREIGN KEY (staff_id) REFERENCES staff(staff_id),
+    FOREIGN KEY (surface_id) REFERENCES surface_info(surface_id)
+);
+
+-- 4.1 Buoy Readings Table (1:N relationship with buoy_info)
 DROP TABLE IF EXISTS buoy_readings;
 CREATE TABLE buoy_readings (
     reading_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -81,7 +104,7 @@ CREATE TABLE buoy_readings (
     FOREIGN KEY (buoy_id) REFERENCES buoy_info(buoy_id)
 );
 
--- 3.3 Balloon Readings Table (1:N relationship with balloon_info)
+-- 4.2 Balloon Readings Table (1:N relationship with balloon_info)
 DROP TABLE IF EXISTS balloon_readings;
 CREATE TABLE balloon_readings (
     balloon_reading_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -93,7 +116,7 @@ CREATE TABLE balloon_readings (
     FOREIGN KEY (balloon_id) REFERENCES balloon_info(balloon_id)
 );
 
--- 3.4 Surface Monitor Readings Table (1:N relationship with surface_info)
+-- 4.3 Surface Monitor Readings Table (1:N relationship with surface_info)
 DROP TABLE IF EXISTS surface_readings;
 CREATE TABLE surface_readings (
     surface_readings_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -105,8 +128,10 @@ CREATE TABLE surface_readings (
     FOREIGN KEY (surface_id) REFERENCES surface_info(surface_id)
 );
 
+SET FOREIGN_KEY_CHECKS = 1;
 
--- SECTION 4: CREATE INDEXES
+
+-- SECTION 5: CREATE INDEXES
 -- Country FK indexes
 CREATE INDEX idx_buoy_country on buoy_info (country_id);
 CREATE INDEX idx_balloon_country on balloon_info (country_id);
@@ -118,10 +143,10 @@ CREATE INDEX idx_balloon_fk ON balloon_readings (balloon_id);
 CREATE INDEX idx_surface_fk ON surface_readings (surface_id);
 
 -- Monitor Maintenance indexes
-CREATE INDEX idx_maint_buoy_fk ON monitor_maintenance (buoy_id);
-CREATE INDEX idx_maint_staff_fk ON monitor_maintenance (staff_id);
-CREATE INDEX idx_maint_balloon_fk ON monitor_maintenance (balloon_id);
-CREATE INDEX idx_maint_surface_fk ON monitor_maintenance (surface_id);
+CREATE INDEX idx_maint_buoy_fk ON maintenance_buoy (buoy_id);
+CREATE INDEX idx_maint_balloon_fk ON maintenance_balloon (balloon_id);
+CREATE INDEX idx_maint_surface_fk ON maintenance_surface (surface_id);
+CREATE INDEX idx_maint_staff ON maintenance_buoy (staff_id);
 
 -- Date Indexes
 CREATE INDEX idx_buoy_date ON buoy_readings (buoy_reading_date);
