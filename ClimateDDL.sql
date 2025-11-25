@@ -137,6 +137,9 @@ CREATE INDEX idx_buoy_country on buoy_info (country_id);
 CREATE INDEX idx_balloon_country on balloon_info (country_id);
 CREATE INDEX idx_surface_country on surface_info (country_id);
 
+--Country Name indexes
+CREATE UNIQUE INDEX idx_country_name oN country_info (country_name);
+
 -- Monitor ID indexes
 CREATE INDEX idx_buoy_fk ON buoy_readings (buoy_id);
 CREATE INDEX idx_balloon_fk ON balloon_readings (balloon_id);
@@ -155,4 +158,3 @@ CREATE INDEX idx_surface_date ON surface_readings (surface_reading_date);
 
 -- Staff Name Indexes
 CREATE INDEX idx_staff_name ON staff (staff_name);
-
