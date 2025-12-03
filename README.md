@@ -26,7 +26,8 @@ Since one staff member can control many monitors over time/one monitor can be ma
 
 **ER Diagram (mwb file can be found on the left)**
 
-<img width="559" height="656" alt="ERVersion2" src="https://github.com/user-attachments/assets/11061b50-4c34-48e8-a16b-d47bbb104735" />
+<img width="513" height="639" alt="image" src="https://github.com/user-attachments/assets/db458ad3-ad19-4c52-abe8-790583aa235f" />
+
 
 **Data Dictionary (complete)**
 
